@@ -2,6 +2,7 @@ package dev.sajidali.vod.discovery
 
 import dev.sajidali.vod.discovery.di.AppModule
 import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
 
 /**
@@ -13,10 +14,10 @@ object Application {
      * @param apiKey The TMDb API key
      * @param appDeclaration Additional Koin configuration
      */
-    fun init(apiKey: String, appDeclaration: KoinAppDeclaration = {}) {
+    fun init(apiKey: String, appDeclaration: KoinAppDeclaration = {}, modules: List<Module> = listOf()) {
         startKoin {
             appDeclaration()
-            modules(AppModule.create(apiKey))
+            modules(listOf(AppModule.create(apiKey)) + modules)
         }
     }
 }

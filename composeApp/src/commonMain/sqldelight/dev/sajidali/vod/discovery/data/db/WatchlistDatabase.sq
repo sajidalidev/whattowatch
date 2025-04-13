@@ -1,0 +1,32 @@
+CREATE TABLE WatchlistItem (
+    id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    posterPath TEXT,
+    overview TEXT,
+    releaseDate TEXT,
+    voteAverage REAL,
+    itemType TEXT NOT NULL,
+    addedDate INTEGER NOT NULL
+);
+
+getAllItems:
+SELECT * FROM WatchlistItem ORDER BY addedDate DESC;
+
+getItemById:
+SELECT * FROM WatchlistItem WHERE id = ?;
+
+getItemsByType:
+SELECT * FROM WatchlistItem WHERE itemType = ? ORDER BY addedDate DESC;
+
+insertItem:
+INSERT OR REPLACE INTO WatchlistItem(id, title, posterPath, overview, releaseDate, voteAverage, itemType, addedDate)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteItem:
+DELETE FROM WatchlistItem WHERE id = ?;
+
+isInWatchlist:
+SELECT COUNT(*) FROM WatchlistItem WHERE id = ?;
+
+clearWatchlist:
+DELETE FROM WatchlistItem;
